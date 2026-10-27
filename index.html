@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Структури даних у Python: Списки та Таблиці (10 клас)</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0284c7',
+                            600: '#0369a1',
+                            700: '#035485',
+                            900: '#0c4a6e',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.9);
+        }
+        .code-block {
+            background-color: #0f172a;
+            color: #f8fafc;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col font-sans">
+
+    <!-- Header Navigation -->
+    <header class="sticky top-0 z-50 glass-panel border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-3">
+                    <div class="bg-brand-600 text-white p-2.5 rounded-xl shadow-md">
+                        <i class="fa-solid fa-layer-group text-xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="font-bold text-slate-900 text-lg leading-tight">Python: Списки та Таблиці</h1>
+                        <p class="text-xs text-slate-500 font-medium">Практикум з диференційованими завданнями • 10 клас</p>
+                    </div>
+                </div>
+
+                <!-- Navigation Tabs -->
+                <nav class="flex gap-1 bg-slate-100 p-1.5 rounded-xl text-sm font-medium">
+                    <button onclick="switchTab('theory')" id="tab-theory" class="tab-btn px-4 py-2 rounded-lg transition-all text-brand-600 bg-white shadow-sm">
+                        <i class="fa-solid fa-book-open mr-1.5"></i>Теорія
+                    </button>
+                    <button onclick="switchTab('tasks')" id="tab-tasks" class="tab-btn px-4 py-2 rounded-lg transition-all text-slate-600 hover:text-slate-900">
+                        <i class="fa-solid fa-user-graduate mr-1.5"></i>Завдання за профілями
+                    </button>
+                    <button onclick="switchTab('quiz')" id="tab-quiz" class="tab-btn px-4 py-2 rounded-lg transition-all text-slate-600 hover:text-slate-900">
+                        <i class="fa-solid fa-list-check mr-1.5"></i>Тест
+                    </button>
+                    <button onclick="switchTab('reflection')" id="tab-reflection" class="tab-btn px-4 py-2 rounded-lg transition-all text-slate-600 hover:text-slate-900">
+                        <i class="fa-solid fa-heart-pulse mr-1.5"></i>Рефлексія
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- SECTION 1: THEORY -->
+        <section id="section-theory" class="space-y-8">
+            <div class="bg-gradient-to-r from-slate-900 via-sky-900 to-indigo-950 rounded-2xl p-6 sm:p-8 text-white shadow-xl border border-slate-800">
+                <div class="max-w-3xl">
+                    <span class="inline-block bg-sky-500/20 text-sky-300 border border-sky-400/30 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider mb-3">Візуальний довідник</span>
+                    <h2 class="text-3xl font-extrabold tracking-tight mb-2">Структури даних: Списки та Матриці</h2>
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        Комплексний огляд одновимірних масивів (потяг) та двовимірних таблиць (багатоповерховий будинок) у мові Python.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Theory Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Card 1 -->
+                <div class="glass-panel p-6 rounded-2xl shadow-sm border border-slate-200">
+                    <h3 class="text-lg font-bold text-slate-900 mb-2"><i class="fa-solid fa-train text-sky-600 mr-2"></i> Що таке список (List)?</h3>
+                    <p class="text-slate-600 text-xs mb-3">Впорядкований контейнер для зберігання послідовності об'єктів під одним іменем.</p>
+                    <ul class="text-xs space-y-1.5 text-slate-700 bg-slate-50 p-3 rounded-xl border border-slate-200">
+                        <li>• <strong>Синтаксис:</strong> Квадратні дужки <code>[1, 2, 3]</code></li>
+                        <li>• <strong>Типи даних:</strong> Може містити числа, рядки, дроби разом</li>
+                        <li>• <strong>Змінюваність:</strong> Елементи можна модифікувати після створення</li>
+                    </ul>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="glass-panel p-6 rounded-2xl shadow-sm border border-slate-200">
+                    <h3 class="text-lg font-bold text-slate-900 mb-2"><i class="fa-solid fa-hashtag text-sky-600 mr-2"></i> Індексація та Анатомія</h3>
+                    <p class="text-slate-600 text-xs mb-3">Індексація завжди починається з **0**. Від'ємні індекси відраховують з кінця (-1).</p>
+                    <div class="code-block p-3 rounded-xl font-mono text-xs">
+                        <p class="text-slate-400"># animals = ['Кіт', 'Собака', 'Миша', 'Хом'як']</p>
+                        <p class="text-emerald-400">print(animals[0]) <span class="text-slate-500"># Виведе: 'Кіт'</span></p>
+                        <p class="text-emerald-400">print(animals[-1]) <span class="text-slate-500"># Виведе: 'Хом'як'</span></p>
+                        <p class="text-emerald-400">print(len(animals)) <span class="text-slate-500"># Довжина: 4</span></p>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="glass-panel p-6 rounded-2xl shadow-sm border border-slate-200">
+                    <h3 class="text-lg font-bold text-slate-900 mb-2"><i class="fa-solid fa-wrench text-sky-600 mr-2"></i> Методи vs Функції</h3>
+                    <div class="grid grid-cols-2 gap-2 text-xs font-mono">
+                        <div class="bg-slate-100 p-2 rounded-lg"><strong>.append(x)</strong> — додати в кінець</div>
+                        <div class="bg-slate-100 p-2 rounded-lg"><strong>.remove(x)</strong> — вилучити за значенням</div>
+                        <div class="bg-slate-100 p-2 rounded-lg"><strong>sum(a)</strong> — сума елементів</div>
+                        <div class="bg-slate-100 p-2 rounded-lg"><strong>sorted(a)</strong> — сортування</div>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="glass-panel p-6 rounded-2xl shadow-sm border border-slate-200">
+                    <h3 class="text-lg font-bold text-slate-900 mb-2"><i class="fa-solid fa-table-cells text-sky-600 mr-2"></i> Двовимірні Матриці (Таблиці)</h3>
+                    <p class="text-slate-600 text-xs mb-3">У Python таблиця реалізується як <strong>список списків (List of Lists)</strong>.</p>
+                    <div class="code-block p-3 rounded-xl font-mono text-xs">
+                        <p class="text-slate-400">table = [[1, 7, 17], [8, 18, 19]]</p>
+                        <p class="text-sky-300"># Доступ: table[рядок][стовпчик]</p>
+                        <p class="text-emerald-400">print(table[1][2]) <span class="text-slate-500"># Результат: 19</span></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: PROFILE TASKS -->
+        <section id="section-tasks" class="hidden space-y-6">
+            <div class="glass-panel p-6 rounded-2xl shadow-sm border border-slate-200">
+                <h2 class="text-2xl font-bold text-slate-900 mb-2">Диференційовані Картки за Профілями</h2>
+                <p class="text-slate-600 text-sm mb-6">Оберіть свій профіль навчання для виконання практичного завдання з кодуванням.</p>
+
+                <!-- Profile Switcher Tabs -->
+                <div class="flex flex-wrap gap-2 mb-6 border-b border-slate-200 pb-4">
+                    <button onclick="switchProfile('history')" id="prof-history" class="prof-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-indigo-600 text-white shadow-sm">
+                        🏛️ Історико-правовий
+                    </button>
+                    <button onclick="switchProfile('engineering')" id="prof-engineering" class="prof-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-slate-200 text-slate-700 hover:bg-slate-300">
+                        🛠️ Інженерний (Ускладнений)
+                    </button>
+                    <button onclick="switchProfile('econ')" id="prof-econ" class="prof-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-slate-200 text-slate-700 hover:bg-slate-300">
+                        📊 Економічний
+                    </button>
+                    <button onclick="switchProfile('humanitarian')" id="prof-humanitarian" class="prof-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-slate-200 text-slate-700 hover:bg-slate-300">
+                        📚 Гуманітарний
+                    </button>
+                </div>
+
+                <!-- History Profile -->
+                <div id="task-history" class="prof-content space-y-4">
+                    <div class="bg-indigo-50 border border-indigo-200 p-4 rounded-xl">
+                        <h3 class="font-bold text-indigo-900 text-sm mb-1">🏛️ Завдання 1. Стрічка часу та цензура (Списки)</h3>
+                        <p class="text-xs text-indigo-800">Впорядкуйте роки хронологічно через <code>sorted()</code> та вилучіть "Секретно" за допомогою <code>.remove()</code>.</p>
+                    </div>
+                    <textarea class="w-full h-40 font-mono text-xs bg-slate-900 text-emerald-400 p-4 rounded-xl"># ЧАСТИНА А: Хронологічний порядок
+years = [1917, 1991, 1648, 1919, 1996]
+correct_timeline = sorted(years)
+print("Хронологія:", correct_timeline)
+
+# ЧАСТИНА Б: Видалення секретних даних
+witnesses = ["Олександр", "Дмитро", "Секретно", "Марія", "Секретно"]
+witnesses.remove("Секретно")
+witnesses.remove("Секретно")
+print("Цивільні свідки:", witnesses)</textarea>
+                </div>
+
+                <!-- Engineering Profile -->
+                <div id="task-engineering" class="prof-content hidden space-y-4">
+                    <div class="bg-amber-50 border border-amber-200 p-4 rounded-xl">
+                        <h3 class="font-bold text-amber-900 text-sm mb-1">🛠️ Завдання 1 & 2. Контроль якості та Матриця дефектів</h3>
+                        <p class="text-xs text-amber-800">Визначте граничні розміри деталей, середню температуру турбіни та координати тріщин металевої пластини.</p>
+                    </div>
+                    <textarea class="w-full h-40 font-mono text-xs bg-slate-900 text-emerald-400 p-4 rounded-xl">details = [25.4, 25.1, 24.8, 26.2, 25.0, 25.3, 24.5]
+min_size = min(details)
+max_size = max(details)
+print(f"Мін: {min_size} мм, Макс: {max_size} мм")
+
+defective = [d for d in details if d < 24.9 or d > 25.5]
+print("Браковані деталі:", defective)</textarea>
+                </div>
+
+                <!-- Economic Profile -->
+                <div id="task-econ" class="prof-content hidden space-y-4">
+                    <div class="bg-emerald-50 border border-emerald-200 p-4 rounded-xl">
+                        <h3 class="font-bold text-emerald-900 text-sm mb-1">📊 Завдання. Фінансовий виторг та Матриця продажів</h3>
+                        <p class="text-xs text-emerald-800">Аналізуйте виторг торговельної мережі за тиждень та обчисліть суми продажів 3 філій.</p>
+                    </div>
+                    <textarea class="w-full h-40 font-mono text-xs bg-slate-900 text-emerald-400 p-4 rounded-xl">revenues = [12500, 9800, 15400, 8900, 11200, 16800, 9500]
+total_revenue = sum(revenues)
+avg_revenue = total_revenue / len(revenues)
+print(f"Загальний виторг: {total_revenue} грн, Середній: {avg_revenue:.2f} грн")</textarea>
+                </div>
+
+                <!-- Humanitarian Profile -->
+                <div id="task-humanitarian" class="prof-content hidden space-y-4">
+                    <div class="bg-sky-50 border border-sky-200 p-4 rounded-xl">
+                        <h3 class="font-bold text-sky-900 text-sm mb-1">📚 Завдання. Електронний каталог бібліотеки</h3>
+                        <p class="text-xs text-sky-800">Відсортуйте книги за алфавітом, додайте нове видання та оцініть рукописи.</p>
+                    </div>
+                    <textarea class="w-full h-40 font-mono text-xs bg-slate-900 text-emerald-400 p-4 rounded-xl">books = ["Кобзар", "Тіні забутих предків", "Кайдашева сім'я", "Захар Беркут"]
+books.append("Лісова пісня")
+sorted_books = sorted(books)
+print("Каталог за алфавітом:", sorted_books)
+print("Кількість книг:", len(sorted_books))</textarea>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: QUIZ -->
+        <section id="section-quiz" class="hidden space-y-6">
+            <div class="glass-panel p-6 rounded-2xl shadow-sm border border-slate-200">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-2xl font-bold text-slate-900">Підсумковий Тест</h2>
+                    <div id="quiz-score" class="hidden bg-emerald-100 text-emerald-800 px-4 py-2 rounded-xl text-sm font-bold">
+                        Результат: <span id="score-val">0</span> / 12 балів
+                    </div>
+                </div>
+
+                <form id="quiz-form" class="space-y-4 text-sm">
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <p class="font-semibold mb-2">1. Яка функція повертає кількість елементів у списку?</p>
+                        <label class="block"><input type="radio" name="q1" value="a"> count()</label>
+                        <label class="block"><input type="radio" name="q1" value="b"> len()</label>
+                        <label class="block"><input type="radio" name="q1" value="c"> size()</label>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <p class="font-semibold mb-2">2. Як звернутися до елемента в першому рядку і другому стовпчику таблиці <code>t</code>?</p>
+                        <label class="block"><input type="radio" name="q2" value="a"> t[0][1]</label>
+                        <label class="block"><input type="radio" name="q2" value="b"> t[1][2]</label>
+                        <label class="block"><input type="radio" name="q2" value="c"> t[1, 2]</label>
+                    </div>
+                    <button type="button" onclick="submitQuiz()" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3 rounded-xl shadow-md">
+                        Перевірити відповіді
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- SECTION 4: REFLECTION -->
+        <section id="section-reflection" class="hidden space-y-6">
+            <div class="glass-panel p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200">
+                <h2 class="text-2xl font-bold text-slate-900 mb-2">Анкета Рефлексії Навчання</h2>
+                <p class="text-slate-500 text-sm mb-6">Оцініть свій прогрес та враження від практичного заняття.</p>
+
+                <div class="space-y-4 text-sm">
+                    <div>
+                        <label class="block font-semibold text-slate-700 mb-1">Що для вас виявилося найлегшим під час роботи?</label>
+                        <textarea id="ref-easy" class="w-full p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-brand-500 focus:outline-none" rows="2" placeholder="Ваша відповідь..."></textarea>
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-slate-700 mb-1">З якими труднощами ви зіткнулися при виконанні завдань?</label>
+                        <textarea id="ref-hard" class="w-full p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-brand-500 focus:outline-none" rows="2" placeholder="Ваша відповідь..."></textarea>
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-slate-700 mb-1">Оцініть свій рівень розуміння списків та матриць (1-12 балів):</label>
+                        <input type="number" id="ref-mark" min="1" max="12" class="w-32 p-3 border border-slate-300 rounded-xl font-bold text-center" value="10">
+                    </div>
+                    <button type="button" onclick="saveReflection()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-2.5 rounded-xl shadow-md">
+                        <i class="fa-solid fa-floppy-disk mr-2"></i>Зберегти рефлексію
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 text-xs py-6 mt-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-2">
+            <p>Готовий проект для публікації на GitHub Pages • Інформатика 10 клас</p>
+        </div>
+    </footer>
+
+    <script>
+        function switchTab(tab) {
+            document.querySelectorAll('main > section').forEach(s => s.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(b => {
+                b.classList.remove('bg-white', 'shadow-sm', 'text-brand-600');
+                b.classList.add('text-slate-600');
+            });
+            document.getElementById('section-' + tab).classList.remove('hidden');
+            const btn = document.getElementById('tab-' + tab);
+            btn.classList.add('bg-white', 'shadow-sm', 'text-brand-600');
+            btn.classList.remove('text-slate-600');
+        }
+
+        function switchProfile(prof) {
+            document.querySelectorAll('.prof-content').forEach(c => c.classList.add('hidden'));
+            document.querySelectorAll('.prof-btn').forEach(b => {
+                b.classList.remove('bg-indigo-600', 'text-white');
+                b.classList.add('bg-slate-200', 'text-slate-700');
+            });
+            document.getElementById('task-' + prof).classList.remove('hidden');
+            const btn = document.getElementById('prof-' + prof);
+            btn.classList.add('bg-indigo-600', 'text-white');
+            btn.classList.remove('bg-slate-200', 'text-slate-700');
+        }
+
+        function submitQuiz() {
+            let score = 0;
+            const q1 = document.querySelector('input[name="q1"]:checked');
+            const q2 = document.querySelector('input[name="q2"]:checked');
+            if(q1 && q1.value === 'b') score += 6;
+            if(q2 && q2.value === 'a') score += 6;
+
+            const badge = document.getElementById('quiz-score');
+            badge.classList.remove('hidden');
+            document.getElementById('score-val').textContent = score;
+            alert("Тест завершено! Ваша оцінка: " + score + " з 12 балів.");
+        }
+
+        function saveReflection() {
+            alert("Рефлексію успішно збережено!");
+        }
+    </script>
+</body>
+</html>
